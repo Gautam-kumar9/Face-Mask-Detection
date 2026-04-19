@@ -1,5 +1,8 @@
 # app.py
 from pathlib import Path
+import os
+from urllib.error import URLError
+from urllib.request import urlretrieve
 
 import cv2
 import numpy as np
@@ -17,11 +20,37 @@ st.set_page_config(
 MODEL_PATH = Path(__file__).resolve().parent / "mask_detector_model.h5"
 
 
+def _get_model_url():
+    model_url = None
+    if "MODEL_URL" in st.secrets:
+        model_url = st.secrets["MODEL_URL"]
+    if not model_url:
+        model_url = os.getenv("MODEL_URL")
+    return model_url
+
+
+def _ensure_model_file():
+    if MODEL_PATH.exists():
+        return
+
+    model_url = _get_model_url()
+    if not model_url:
+        st.error(
+            "Model file not found. Configure MODEL_URL in Streamlit secrets or environment variables."
+        )
+        st.stop()
+
+    with st.spinner("Downloading model file..."):
+        try:
+            urlretrieve(model_url, MODEL_PATH)
+        except (URLError, OSError, ValueError) as exc:
+            st.error(f"Failed to download model from MODEL_URL: {exc}")
+            st.stop()
+
+
 @st.cache_resource
 def get_model():
-    if not MODEL_PATH.exists():
-        st.error("Model file not found: mask_detector_model.h5")
-        st.stop()
+    _ensure_model_file()
     return load_model(str(MODEL_PATH), compile=False)
 
 

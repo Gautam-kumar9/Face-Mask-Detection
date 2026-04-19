@@ -72,13 +72,21 @@ To keep repository size small and push operations fast, large assets are exclude
 
 Before running or deploying, make sure `mask_detector_model.h5` exists in the project root.
 
+For cloud deployment without committing large model files, the app can automatically download the model from a URL using `MODEL_URL`.
+
 ## Deploy on Streamlit Community Cloud
 
 1. Push this project to a GitHub repository.
 2. Open Streamlit Community Cloud and click **Create app**.
 3. Select repository and branch.
 4. Set main file path to `app.py`.
-5. Deploy.
+5. In **Advanced settings -> Secrets**, add:
+
+```toml
+MODEL_URL = "https://your-public-model-url/mask_detector_model.h5"
+```
+
+6. Deploy.
 
 ## Training (Optional)
 
