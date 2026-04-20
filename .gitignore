@@ -26,3 +26,4 @@ Thumbs.db
 # Large project assets (excluded for code-only repo)
 data/
 *.h5
+!mask_detector_model.h5
