@@ -104,6 +104,10 @@ After training, copy or move the generated `mask_detector_model.h5` to the proje
 - Improve model performance with transfer learning
 - Add experiment tracking and evaluation metrics
 - Add CI checks for linting and dependency validation
+Some Demo*
+<img width="1845" height="863" alt="image" src="https://github.com/user-attachments/assets/beb72c93-4992-4b22-80b2-9cff5c65661c" />
+<img width="1834" height="821" alt="image" src="https://github.com/user-attachments/assets/d681d089-6821-4397-a463-2a6473302585" />
+
 
 ## Author
 
