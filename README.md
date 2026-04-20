@@ -1,7 +1,7 @@
 # MaskSense AI: Face Mask Detection Web App
 
 MaskSense AI is a Streamlit-based computer vision application that classifies whether a person is wearing a face mask. The project is designed for fast demos, portfolio presentation, and cloud deployment.
-
+For demo : - https://face-mask-detection-2.streamlit.app/
 ## Overview
 
 The app uses a TensorFlow/Keras model and provides two inference modes:
