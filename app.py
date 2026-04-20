@@ -8,7 +8,13 @@ import cv2
 import numpy as np
 import streamlit as st
 from PIL import Image
-from tensorflow.keras.models import load_model
+
+try:
+    from tensorflow.keras.models import load_model
+    TF_IMPORT_ERROR = None
+except Exception as exc:
+    load_model = None
+    TF_IMPORT_ERROR = exc
 
 
 st.set_page_config(
@@ -50,6 +56,14 @@ def _ensure_model_file():
 
 @st.cache_resource
 def get_model():
+    if load_model is None:
+        st.error(
+            "TensorFlow is not available in this environment. "
+            "For Streamlit Cloud, set Python to 3.11 in app settings."
+        )
+        st.caption(f"Import error: {TF_IMPORT_ERROR}")
+        st.stop()
+
     _ensure_model_file()
     return load_model(str(MODEL_PATH), compile=False)
 
